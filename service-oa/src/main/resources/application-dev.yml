@@ -4,6 +4,8 @@ mybatis-plus:
   configuration:
     # 查看日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:com/atguigu/auth/mapper/xml/*.xml
+
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource

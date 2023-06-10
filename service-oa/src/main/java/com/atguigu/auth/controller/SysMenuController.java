@@ -34,9 +34,9 @@ public class SysMenuController {
      * @return
      */
     @ApiOperation(value = "根据角色获取菜单")
-    @GetMapping("toAssign/{roleId}")
+    @GetMapping("/toAssign/{roleId}")
     public Result toAssign(@PathVariable Long roleId) {
-        List<SysMenu> list = sysMenuService.findSysMenuByRoleId(roleId);
+        List<SysMenu> list = sysMenuService.findMenuByRoleId(roleId);
         return Result.ok(list);
     }
 

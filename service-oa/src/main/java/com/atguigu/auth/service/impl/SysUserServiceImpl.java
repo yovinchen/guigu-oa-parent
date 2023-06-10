@@ -3,6 +3,7 @@ package com.atguigu.auth.service.impl;
 import com.atguigu.auth.mapper.SysUserMapper;
 import com.atguigu.auth.service.SysUserService;
 import com.atguigu.model.system.SysUser;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,5 +37,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             sysUser.setStatus(0);
         }
         baseMapper.updateById(sysUser);
+    }
+
+    /**
+     * 根据用户名进行查询
+     *
+     * @param username
+     * @return
+     */
+    @Override
+    public SysUser getByUsername(String username) {
+        return baseMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
     }
 }

@@ -3,6 +3,7 @@ package com.atguigu.auth.controller;
 
 import com.atguigu.auth.service.SysUserService;
 import com.atguigu.common.result.Result;
+import com.atguigu.common.utils.MD5;
 import com.atguigu.model.system.SysUser;
 import com.atguigu.vo.system.SysUserQueryVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -107,6 +108,8 @@ public class SysUserController {
     @ApiOperation(value = "保存用户")
     @PostMapping("save")
     public Result save(@RequestBody SysUser user) {
+        //对密码进行MD5加密，只能加密不能解密
+        user.setPassword(MD5.encrypt(user.getPassword()));
         sysUserService.save(user);
         return Result.ok();
     }
