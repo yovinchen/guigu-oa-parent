@@ -1,4 +1,4 @@
-package com.atguigu.common.execption;
+package com.atguigu.common.config.execption;
 
 import com.atguigu.common.result.ResultCodeEnum;
 import lombok.Data;

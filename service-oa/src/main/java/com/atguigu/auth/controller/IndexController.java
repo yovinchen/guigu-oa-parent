@@ -2,7 +2,7 @@ package com.atguigu.auth.controller;
 
 import com.atguigu.auth.service.SysMenuService;
 import com.atguigu.auth.service.SysUserService;
-import com.atguigu.common.execption.GuiguException;
+import com.atguigu.common.config.execption.GuiguException;
 import com.atguigu.common.jwt.JwtHelper;
 import com.atguigu.common.result.Result;
 import com.atguigu.common.utils.MD5;

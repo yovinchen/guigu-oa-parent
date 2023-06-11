@@ -4,7 +4,7 @@ import com.atguigu.auth.mapper.SysMenuMapper;
 import com.atguigu.auth.service.SysMenuService;
 import com.atguigu.auth.service.SysRoleMenuService;
 import com.atguigu.auth.utils.MenuHelper;
-import com.atguigu.common.execption.GuiguException;
+import com.atguigu.common.config.execption.GuiguException;
 import com.atguigu.model.system.SysMenu;
 import com.atguigu.model.system.SysRoleMenu;
 import com.atguigu.vo.system.AssginMenuVo;
