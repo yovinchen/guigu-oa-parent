@@ -29,18 +29,27 @@ import java.util.List;
 @SpringBootTest
 public class ProcessTest {
 
+    /**
+     * 流程定义
+     */
     @Autowired
     private RepositoryService repositoryService;
 
-
+    /**
+     * 流程实例
+     */
     @Autowired
     private RuntimeService runtimeService;
 
-
+    /**
+     * 流程任务
+     */
     @Autowired
     private TaskService taskService;
 
-
+    /**
+     * 相关操作历史
+     */
     @Autowired
     private HistoryService historyService;
 
@@ -49,7 +58,7 @@ public class ProcessTest {
      */
     @Test
     public void SingleSuspendProcessInstance() {
-        String processInstanceId = "8bdff984-ab53-11ed-9b17-f8e43b734677";
+        String processInstanceId = "ce1f3cc0-08cf-11ee-b8cb-e645a9a03302";
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         //获取到当前流程定义是否为暂停状态   suspended方法为true代表为暂停   false就是运行的
         boolean suspended = processInstance.isSuspended();
@@ -67,17 +76,17 @@ public class ProcessTest {
      */
     @Test
     public void suspendProcessInstance() {
-        ProcessDefinition qingjia = repositoryService.createProcessDefinitionQuery().processDefinitionKey("qingjia").singleResult();
+        ProcessDefinition leave = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave").singleResult();
         // 获取到当前流程定义是否为暂停状态 suspended方法为true是暂停的，suspended方法为false是运行的
-        boolean suspended = qingjia.isSuspended();
+        boolean suspended = leave.isSuspended();
         if (suspended) {
             // 暂定,那就可以激活
             // 参数1:流程定义的id  参数2:是否激活    参数3:时间点
-            repositoryService.activateProcessDefinitionById(qingjia.getId(), true, null);
-            System.out.println("流程定义:" + qingjia.getId() + "激活");
+            repositoryService.activateProcessDefinitionById(leave.getId(), true, null);
+            System.out.println("流程定义:" + leave.getId() + "激活");
         } else {
-            repositoryService.suspendProcessDefinitionById(qingjia.getId(), true, null);
-            System.out.println("流程定义:" + qingjia.getId() + "挂起");
+            repositoryService.suspendProcessDefinitionById(leave.getId(), true, null);
+            System.out.println("流程定义:" + leave.getId() + "挂起");
         }
     }
 
@@ -89,7 +98,7 @@ public class ProcessTest {
         String businessKey = "1";
         // 启动流程实例，指定业务标识businessKey，也就是请假申请单id
         ProcessInstance processInstance = runtimeService.
-                startProcessInstanceByKey("qingjia", businessKey);
+                startProcessInstanceByKey("leave", businessKey);
         // 输出
         System.out.println("业务id:" + processInstance.getBusinessKey());
     }
@@ -99,7 +108,7 @@ public class ProcessTest {
      */
     public void deleteDeployment() {
         //部署id
-        String deploymentId = "5b997a98-0868-11ee-9ba7-6294623ad4e1";
+        String deploymentId = "ce1f3cc0-08cf-11ee-b8cb-e645a9a03302";
         //删除流程定义，如果该流程定义已有流程实例启动则删除时出错
         repositoryService.deleteDeployment(deploymentId);
         //设置true 级联删除流程定义，即使该流程有流程实例启动也可以删除，设置为false非级别删除方式
@@ -117,11 +126,11 @@ public class ProcessTest {
                 .list();
         //输出流程定义信息
         for (ProcessDefinition processDefinition : definitionList) {
-            System.out.println("流程定义 id=" + processDefinition.getId());
-            System.out.println("流程定义 name=" + processDefinition.getName());
-            System.out.println("流程定义 key=" + processDefinition.getKey());
-            System.out.println("流程定义 Version=" + processDefinition.getVersion());
-            System.out.println("流程部署ID =" + processDefinition.getDeploymentId());
+            System.out.println("流程定义 id= " + processDefinition.getId());
+            System.out.println("流程定义 name= " + processDefinition.getName());
+            System.out.println("流程定义 key= " + processDefinition.getKey());
+            System.out.println("流程定义 Version= " + processDefinition.getVersion());
+            System.out.println("流程部署ID = " + processDefinition.getDeploymentId());
         }
     }
 
@@ -145,8 +154,8 @@ public class ProcessTest {
      */
     @Test
     public void completTask() {
-        Task task = taskService.createTaskQuery().taskAssignee("zhangsan")  //要查询的负责人
-                .singleResult();//返回一条
+        //要查询的负责人
+        Task task = taskService.createTaskQuery().taskAssignee("zhangsan").singleResult();//返回一条
 
         //完成任务,参数：任务id
         taskService.complete(task.getId());
@@ -175,7 +184,7 @@ public class ProcessTest {
     @Test
     public void startUpProcess() {
         //创建流程实例,我们需要知道流程定义的key
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("qingjia");
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave");
         //输出实例的相关信息
         System.out.println("流程定义id：" + processInstance.getProcessDefinitionId());
         System.out.println("流程实例id：" + processInstance.getId());
@@ -188,7 +197,7 @@ public class ProcessTest {
     @Test
     public void deployProcess() {
         // 流程部署
-        Deployment deploy = repositoryService.createDeployment().addClasspathResource("process/qingjia.bpmn20.xml").addClasspathResource("process/qingjia.png").name("请假申请流程").deploy();
+        Deployment deploy = repositoryService.createDeployment().addClasspathResource("process/leave.bpmn20.xml").addClasspathResource("process/leave.png").name("请假申请流程").deploy();
         System.out.println(deploy.getId());
         System.out.println(deploy.getName());
     }
