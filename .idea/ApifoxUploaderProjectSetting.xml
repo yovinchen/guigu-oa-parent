@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ApifoxUploaderProjectSetting">
+    <option name="apifoxAccessToken" value="APS-y8NhuBd6z9h1ywfr4nlGAmv9UrquLNKs" />
+    <option name="apifoxApiOverwriteMode" value="覆盖所有字段" />
+    <option name="apifoxProjectIds">
+      <array>
+        <option value="# ModuleName:ProjectID" />
+        <option value="springboot_08_ssmp:2794165" />
+        <option value="demo:2794184" />
+        <option value="service-oa:2853420" />
+      </array>
+    </option>
+    <option name="yapiTokens" value="" />
+  </component>
+</project>
