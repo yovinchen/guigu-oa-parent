@@ -160,6 +160,19 @@ public class OaProcessTemplateController {
         return Result.ok();
     }
 
+    /**
+     * 发布审批模版
+     *
+     * @param id
+     * @return
+     */
+    @PreAuthorize("hasAuthority('bnt.processTemplate.publish')")
+    @ApiOperation(value = "发布")
+    @GetMapping("/publish/{id}")
+    public Result publish(@PathVariable Long id) {
+        processTemplateService.publish(id);
+        return Result.ok();
+    }
 
 }
 

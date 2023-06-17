@@ -22,4 +22,11 @@ public interface OaProcessTemplateService extends IService<ProcessTemplate> {
      * @return
      */
     IPage<ProcessTemplate> selectPageProcessTemplate(Page<ProcessTemplate> pageInfo);
+
+    /**
+     * 发布审批模版
+     *
+     * @param id
+     */
+    void publish(Long id);
 }

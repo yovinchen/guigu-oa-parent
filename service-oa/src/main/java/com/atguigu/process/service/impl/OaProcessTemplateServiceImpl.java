@@ -58,4 +58,18 @@ public class OaProcessTemplateServiceImpl extends ServiceImpl<OaProcessTemplateM
 
         return processTemplatePage;
     }
+
+    /**
+     * 发布审批模版
+     *
+     * @param id
+     */
+    @Override
+    public void publish(Long id) {
+        ProcessTemplate processTemplate = baseMapper.selectById(id);
+        processTemplate.setStatus(1);
+        baseMapper.updateById(processTemplate);
+
+        //TODO 部署流程定义，后续完善
+    }
 }
