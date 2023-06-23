@@ -1,6 +1,7 @@
 package com.atguigu.process.service;
 
 import com.atguigu.model.process.Process;
+import com.atguigu.vo.process.ProcessFormVo;
 import com.atguigu.vo.process.ProcessQueryVo;
 import com.atguigu.vo.process.ProcessVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -30,4 +31,19 @@ public interface OaProcessService extends IService<Process> {
      * 部署流程定义
      */
     void deployByZip(String deployPath);
+
+    /**
+     * 启动流程
+     *
+     * @param processFormVo
+     */
+    void startUp(ProcessFormVo processFormVo);
+
+    /**
+     * 查询待处理的任务列表
+     *
+     * @param pageParam
+     * @return
+     */
+    IPage<ProcessVo> findPending(Page<java.lang.Process> pageParam);
 }
