@@ -89,7 +89,7 @@ public class JwtHelper {
      * @param args
      */
     public static void main(String[] args) {
-        String token = JwtHelper.createToken(1L, "admin");
+        String token = JwtHelper.createToken(4L, "lisi");
         System.out.println(token);
         String username = JwtHelper.getUsername(token);
         Long userId = JwtHelper.getUserId(token);

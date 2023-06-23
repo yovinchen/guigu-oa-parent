@@ -27,5 +27,5 @@ public interface SysUserService extends IService<SysUser> {
      * @param username
      * @return
      */
-    SysUser getByUsername(String username);
+    SysUser getUserByUsername(String username);
 }

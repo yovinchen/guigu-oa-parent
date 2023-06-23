@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -28,7 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "审批流管理")
 @RestController
 @RequestMapping(value = "/admin/process")
-@SuppressWarnings({"unchecked", "rawtypes"})
+@CrossOrigin//跨域
+//@SuppressWarnings({"unchecked", "rawtypes"})
 public class OaProcessController {
 
     @Autowired

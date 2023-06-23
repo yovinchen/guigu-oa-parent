@@ -44,7 +44,7 @@ public class OaProcessTemplateController {
     public static void main(String[] args) {
         try {
             String path = new File(ResourceUtils.getURL("classpath:").getPath()).getAbsolutePath();
-            System.out.println("path = " + path); //E:\CodeLife\IdeaProject\guigu-oa\guigu-oa-parent\service-oa\target\classes
+            System.out.println("path=" + path); //E:\CodeLife\IdeaProject\guigu-oa\guigu-oa-parent\service-oa\target\classes
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

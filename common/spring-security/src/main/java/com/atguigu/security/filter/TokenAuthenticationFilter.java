@@ -5,6 +5,7 @@ import com.atguigu.common.jwt.JwtHelper;
 import com.atguigu.common.result.Result;
 import com.atguigu.common.result.ResultCodeEnum;
 import com.atguigu.common.utils.ResponseUtil;
+import com.atguigu.security.custom.LoginUserInfoHelper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -60,12 +61,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String token = request.getHeader("token");
         logger.info("token:" + token);
         if (!StringUtils.isEmpty(token)) {
-            String useruame = JwtHelper.getUsername(token);
-            logger.info("useruame:" + useruame);
+            String username = JwtHelper.getUsername(token);
+            logger.info("username:" + username);
             //认证成功
-            if (!StringUtils.isEmpty(useruame)) {
+            if (!StringUtils.isEmpty(username)) {
+                //当前用户信息放到 Thresdlocal 里面
+                LoginUserInfoHelper.setUserId(JwtHelper.getUserId(token));
+                LoginUserInfoHelper.setUsername(username);
                 //通过username从reids中获取权限数据
-                String authString = (String) redisTemplate.opsForValue().get(useruame);
+                String authString = (String) redisTemplate.opsForValue().get(username);
                 //将redis中获取的字符串权限数据转换为 ArrayList<SimpleGrantedAuthority>
                 if (!StringUtils.isEmpty(authString)) {
                     List<Map> mapList = JSON.parseArray(authString, Map.class);
@@ -74,9 +78,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     for (Map map : mapList) {
                         authList.add(new SimpleGrantedAuthority((String) map.get("authority")));
                     }
-                    return new UsernamePasswordAuthenticationToken(useruame, null, authList);
+                    return new UsernamePasswordAuthenticationToken(username, null, authList);
                 } else {
-                    return new UsernamePasswordAuthenticationToken(useruame, null, new ArrayList<>());
+                    return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
                 }
             }
         }
