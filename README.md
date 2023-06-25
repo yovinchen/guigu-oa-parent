@@ -1,5 +1,11 @@
 ## 一、云尚办公系统
 
+[总后端](https://github.com/yovinchen/guigu-oa-parent)
+
+[管理端](https://github.com/yovinchen/guigu-oa-admin)
+
+[员工端](https://github.com/yovinchen/guigu-oa-web)
+
 ### 1、介绍
 
 云上办公系统是一套自动办公系统，用户可以通过手机微信扫码关注公众号，在公众号上进行OA审批流程
