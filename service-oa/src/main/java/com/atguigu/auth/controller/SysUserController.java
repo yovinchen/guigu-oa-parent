@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * <p>
  * 用户表 前端控制器
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags = "用户管理接口")
 @RestController
+@CrossOrigin
 @RequestMapping("/admin/system/sysUser")
 public class SysUserController {
 
@@ -138,6 +141,17 @@ public class SysUserController {
     public Result remove(@PathVariable Long id) {
         sysUserService.removeById(id);
         return Result.ok();
+    }
+
+    /**
+     * 获取当前用户
+     *
+     * @return
+     */
+    @GetMapping("getCurrentUser")
+    public Result getCurrentUser() {
+        Map<String, Object> map = sysUserService.getCurrentUser();
+        return Result.ok(map);
     }
 }
 

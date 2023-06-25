@@ -1,5 +1,6 @@
 package com.atguigu.process.controller.api;
 
+import com.atguigu.auth.service.SysUserService;
 import com.atguigu.common.result.Result;
 import com.atguigu.model.process.Process;
 import com.atguigu.model.process.ProcessTemplate;
@@ -7,6 +8,7 @@ import com.atguigu.model.process.ProcessType;
 import com.atguigu.process.service.OaProcessService;
 import com.atguigu.process.service.OaProcessTemplateService;
 import com.atguigu.process.service.OaProcessTypeService;
+import com.atguigu.vo.process.ApprovalVo;
 import com.atguigu.vo.process.ProcessFormVo;
 import com.atguigu.vo.process.ProcessVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -37,10 +39,13 @@ public class ProcessController {
 
     @Autowired
     private OaProcessTypeService oaProcessTypeService;
+
     @Autowired
     private OaProcessTemplateService oaProcessTemplateService;
+
     @Autowired
     private OaProcessService oaProcessService;
+
 
 
     @ApiOperation(value = "待处理")
@@ -103,5 +108,46 @@ public class ProcessController {
         return Result.ok(map);
     }
 
+    /**
+     * 审批
+     *
+     * @param approvalVo
+     * @return
+     */
+    @ApiOperation(value = "审批")
+    @PostMapping("approve")
+    public Result approve(@RequestBody ApprovalVo approvalVo) {
+        oaProcessService.approve(approvalVo);
+        return Result.ok();
+    }
 
+    /**
+     * 分页查询已处理
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
+    @ApiOperation(value = "已处理")
+    @GetMapping("/findProcessed/{page}/{limit}")
+    public Result findProcessed(@ApiParam(name = "page", value = "当前页码", required = true) @PathVariable Long page, @ApiParam(name = "limit", value = "每页记录数", required = true) @PathVariable Long limit) {
+        Page<Process> pageParam = new Page<>(page, limit);
+        IPage<ProcessVo> pageModel = oaProcessService.findProcessed(pageParam);
+        return Result.ok(pageModel);
+    }
+
+    /**
+     * 分页查询已发起
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
+    @ApiOperation(value = "已发起")
+    @GetMapping("/findStarted/{page}/{limit}")
+    public Result findStarted(@ApiParam(name = "page", value = "当前页码", required = true) @PathVariable Long page, @ApiParam(name = "limit", value = "每页记录数", required = true) @PathVariable Long limit) {
+        Page<ProcessVo> pageParam = new Page<>(page, limit);
+        IPage<ProcessVo> pageModel = oaProcessService.findStarted(pageParam);
+        return Result.ok(pageModel);
+    }
 }

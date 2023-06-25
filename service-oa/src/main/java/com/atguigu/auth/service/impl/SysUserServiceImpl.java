@@ -3,10 +3,14 @@ package com.atguigu.auth.service.impl;
 import com.atguigu.auth.mapper.SysUserMapper;
 import com.atguigu.auth.service.SysUserService;
 import com.atguigu.model.system.SysUser;
+import com.atguigu.security.custom.LoginUserInfoHelper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -48,5 +52,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser getUserByUsername(String username) {
         return baseMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
+    }
+
+    /**
+     * 获取当前用户
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> getCurrentUser() {
+        SysUser sysUser = baseMapper.selectById(LoginUserInfoHelper.getUserId());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", sysUser.getName());
+        map.put("phone", sysUser.getPhone());
+        return map;
     }
 }

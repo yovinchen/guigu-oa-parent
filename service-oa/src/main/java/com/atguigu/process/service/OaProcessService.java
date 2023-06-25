@@ -1,6 +1,7 @@
 package com.atguigu.process.service;
 
 import com.atguigu.model.process.Process;
+import com.atguigu.vo.process.ApprovalVo;
 import com.atguigu.vo.process.ProcessFormVo;
 import com.atguigu.vo.process.ProcessQueryVo;
 import com.atguigu.vo.process.ProcessVo;
@@ -56,4 +57,27 @@ public interface OaProcessService extends IService<Process> {
      * @return
      */
     Map<String, Object> show(Long id);
+
+    /**
+     * 审批
+     *
+     * @param approvalVo
+     */
+    void approve(ApprovalVo approvalVo);
+
+    /**
+     * 分页查询已处理
+     *
+     * @param pageParam
+     * @return
+     */
+    IPage<ProcessVo> findProcessed(Page<Process> pageParam);
+
+    /**
+     * 分页查询已发起
+     *
+     * @param pageParam
+     * @return
+     */
+    IPage<ProcessVo> findStarted(Page<ProcessVo> pageParam);
 }
