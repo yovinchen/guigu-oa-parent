@@ -10,7 +10,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://43.143.164.194:3306/guigu-oa?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://82.157.68.223:3306/guigu-oa?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: admin
     password: admin
 #    url: jdbc:mysql://localhost:3306/guigu-oa?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
@@ -20,11 +20,11 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   redis:
-    host: 43.143.164.194
+    host: 82.157.68.223
     port: 6379
-    database: 0
+    database: 1
     timeout: 1800000
-    password: redis
+    password: 
     jedis:
       pool:
         max-active: 20 #最大连接数
